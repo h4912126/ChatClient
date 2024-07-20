@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,226">
+  <controller name="c1" exported="true" pages="0,,1," selected="1"/>
+  <displayList>
+    <graph id="n18_zcpd" name="n18" xy="0,0" size="750,226" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ffdddddd">
+      <gearColor controller="c1" pages="1" values="#dddddd" default="#cccccc"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n19_zcpd" name="n19" xy="0,224" size="750,2" type="rect" lineSize="0" fillColor="#ff999999">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+    </graph>
+    <text id="n20_zcpd" name="textFriendNmae" xy="374,88" pivot="0.5,0" anchor="true" size="194,49" fontSize="36" align="center" text="Chat Room">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+    <image id="n21_f00a" name="n21" src="qp791" fileName="image/Free Flat Arrow 1 E Icon.png" xy="35,78" pivot="0.5,0.5" size="70,70" aspect="true" color="#000000" flip="hz">
+      <gearDisplay controller="c1" pages="1"/>
+      <relation target="" sidePair="middle-middle"/>
+    </image>
+  </displayList>
+</component>

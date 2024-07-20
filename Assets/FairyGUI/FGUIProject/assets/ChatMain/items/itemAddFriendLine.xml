@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,60">
+  <displayList>
+    <graph id="n23_f00a" name="n23" xy="5,0" size="476,60" type="rect" lineSize="0" fillColor="#ffdddddd" corner="5,5,5,5">
+      <relation target="n20_f00a" sidePair="width-width"/>
+    </graph>
+    <text id="n20_f00a" name="textInput" xy="17,0" size="463,60" fontSize="30" vAlign="middle" autoSize="none" singleLine="true" text="" input="true" prompt="[color=#cccccc]添加好友，输入用户ID" maxLength="10" keyboardType="4">
+      <relation target="n22_f00a" sidePair="rightext-left"/>
+    </text>
+    <component id="n22_f00a" name="btnAdd" src="f00aa1" fileName="items/Button1.xml" xy="565,0">
+      <relation target="" sidePair="right-right"/>
+    </component>
+  </displayList>
+</component>

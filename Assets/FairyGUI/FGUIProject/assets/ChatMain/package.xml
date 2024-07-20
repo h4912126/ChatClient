@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="i49jx3tv">
+  <resources>
+    <component id="otn10" name="itemChatMain.xml" path="/items/"/>
+    <image id="qp791" name="Free Flat Arrow 1 E Icon.png" path="/image/"/>
+    <image id="qp79i" name="Free Flat Hat Solid Blank Icon.png" path="/image/"/>
+    <image id="qp79l" name="Free Flat Home Icon.png" path="/image/"/>
+    <image id="qp79m" name="Free Flat Heart Filled Icon.png" path="/image/"/>
+    <image id="qp7914" name="Free Flat Download 1 Icon.png" path="/image/"/>
+    <image id="qp791f" name="Free Flat Cloud Icon.png" path="/image/"/>
+    <image id="qp791q" name="Free Flat Gradient Circle Icon.png" path="/image/"/>
+    <image id="qp791r" name="Free Flat Gradient Circle (Top) Icon.png" path="/image/"/>
+    <image id="qp791x" name="Free Flat Gear 2 Icon.png" path="/image/"/>
+    <image id="qp7925" name="Free Flat Lock Open Icon.png" path="/image/"/>
+    <image id="qp792d" name="Free Flat Plus Icon.png" path="/image/"/>
+    <image id="qp792e" name="Free Flat Person Icon.png" path="/image/"/>
+    <image id="qp792i" name="Free Flat People 1 Icon.png" path="/image/"/>
+    <image id="qp792y" name="Free Flat Toggle Thumb Centre Icon.png" path="/image/"/>
+    <image id="qp792z" name="Free Flat Toggle Right Icon.png" path="/image/"/>
+    <image id="qp7930" name="Free Flat Toggle Left Icon.png" path="/image/"/>
+    <image id="qp7932" name="Free Flat Toggle Cage Icon.png" path="/image/"/>
+    <image id="qp7933" name="Free Flat Thumbs Up Icon.png" path="/image/"/>
+    <image id="qp7935" name="Free Flat Lock Closed Icon.png" path="/image/"/>
+    <image id="qp793c" name="Free Flat Media Stop Icon.png" path="/image/"/>
+    <image id="qp793g" name="Free Flat Media Pause Icon.png" path="/image/"/>
+    <image id="qp793h" name="Free Flat Media Left Icon.png" path="/image/"/>
+    <image id="qp793i" name="Free Flat Media Left Full Icon.png" path="/image/"/>
+    <image id="qp793j" name="Free Flat Media Left Double Icon.png" path="/image/"/>
+    <image id="qp793k" name="Free Flat Magnify Plus Icon.png" path="/image/"/>
+    <image id="qp793m" name="Free Flat Magnify Icon.png" path="/image/"/>
+    <image id="qp793s" name="Free Flat Move Out Icon.png" path="/image/"/>
+    <image id="qp793u" name="Free Flat Move In Icon.png" path="/image/"/>
+    <image id="qp793v" name="Free Flat Mic Off Icon.png" path="/image/"/>
+    <image id="qp7940" name="Free Flat Mic No Cross Icon.png" path="/image/"/>
+    <image id="qp7941" name="Free Flat Mic Icon.png" path="/image/"/>
+    <image id="qp7970" name="Free Flat Chat 2 Ellipsis Icon.png" path="/image/"/>
+    <image id="qp7971" name="Free Flat Chat 2 Blank Icon.png" path="/image/" scale="9grid" scale9grid="180,64,11,36"/>
+    <image id="qp7975" name="Free Flat Chat 1 Ellipsis Icon.png" path="/image/"/>
+    <image id="qp7976" name="Free Flat Chat 1 Blank Icon.png" path="/image/"/>
+    <component id="qp798h" name="RadioBtn1.xml" path="/items/"/>
+    <image id="qp7992" name="head_8.jpg" path="/image/head/" exported="true"/>
+    <image id="qp7993" name="head_7.jpg" path="/image/head/" exported="true"/>
+    <image id="qp7994" name="head_6.jpg" path="/image/head/" exported="true"/>
+    <image id="qp7996" name="head_4.jpg" path="/image/head/" exported="true"/>
+    <image id="qp7997" name="head_3.jpg" path="/image/head/" exported="true"/>
+    <image id="qp7998" name="head_19.jpg" path="/image/head/" exported="true"/>
+    <image id="qp7999" name="head_9.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799a" name="head_18.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799b" name="head_16.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799c" name="head_15.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799d" name="head_14.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799e" name="head_13.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799f" name="head_12.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799g" name="head_11.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799h" name="head_10.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799i" name="head_17.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799j" name="head_2.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799l" name="head_1.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799m" name="head_20.jpg" path="/image/head/" exported="true"/>
+    <image id="qp799n" name="head_5.jpg" path="/image/head/" exported="true"/>
+    <component id="qp799o" name="itemUserHead.xml" path="/items/"/>
+    <component id="qp799p" name="itemChatEntry.xml" path="/items/"/>
+    <component id="zcpd9r" name="itemChatBottom.xml" path="/items/"/>
+    <component id="zcpd9s" name="itemChatTop.xml" path="/items/"/>
+    <component id="zcpd9t" name="itemChatContent.xml" path="/items/"/>
+    <image id="zcpd9w" name="221751614_0_final.png" path="/image/"/>
+    <image id="f00a9x" name="图层 1 拷贝1.png" path="/image/" scale="9grid" scale9grid="11,12,22,24"/>
+    <image id="f00a9y" name="n13.png" path="/image/" scale="9grid" scale9grid="30,30,60,60" qualityOption="source"/>
+    <component id="f00aa0" name="itemChatPage.xml" path="/items/"/>
+    <component id="f00aa1" name="Button1.xml" path="/items/"/>
+    <component id="f00aa2" name="itemAddFriendLine.xml" path="/items/"/>
+    <component id="f00aa3" name="itemUserInfo.xml" path="/items/"/>
+    <component id="f00aa5" name="itemChat.xml" path="/items/"/>
+    <component id="f00aa6" name="ChatMain.xml" path="/" exported="true"/>
+    <component id="f00aa7" name="itemChatContentAndTime.xml" path="/items/"/>
+    <component id="f00aa8" name="AutoBtn1.xml" path="/items/"/>
+  </resources>
+  <publish name="" genCode="true"/>
+</packageDescription>

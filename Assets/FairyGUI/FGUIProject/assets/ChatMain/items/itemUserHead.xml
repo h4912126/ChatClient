@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="120,120" mask="n13_qp79">
+  <displayList>
+    <loader id="n12_qp79" name="n12" xy="0,0" size="120,120" url="ui://i49jx3tvqp799e" fill="scaleFree"/>
+    <graph id="n13_qp79" name="n13" xy="0,0" size="120,120" type="rect" lineSize="0" corner="10,10,10,10"/>
+  </displayList>
+</component>

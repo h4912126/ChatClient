@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="4,4" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <loader id="n3_qp79" name="icon" xy="1,1" size="1,1" autoSize="true">
+      <gearColor controller="button" pages="0,1,2,3" values="#ffffff|#0099ff|#ffffff|#0099ff"/>
+    </loader>
+  </displayList>
+  <Button mode="Radio"/>
+  <relation target="n3_qp79" sidePair="width-width,height-height"/>
+</component>

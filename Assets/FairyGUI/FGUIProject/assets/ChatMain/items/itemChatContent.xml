@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,150">
+  <controller name="c1" pages="0,self,1,other" selected="1"/>
+  <controller name="showTime" pages="0,,1," selected="0"/>
+  <displayList>
+    <component id="n20_zcpd" name="n20" src="qp799o" fileName="items/itemUserHead.xml" xy="30,13" pivot="0,0.5" scale="0.9,0.9">
+      <gearDisplay controller="c1" pages="1"/>
+    </component>
+    <component id="n21_zcpd" name="n21" src="qp799o" fileName="items/itemUserHead.xml" xy="600,13" pivot="1,0.5" scale="0.9,0.9">
+      <gearDisplay controller="c1" pages="0"/>
+      <relation target="" sidePair="right-right,top-top"/>
+    </component>
+    <image id="n25_zcpd" name="n25" src="f00a9y" fileName="image/n13.png" xy="153,24" size="230,100">
+      <gearDisplay controller="c1" pages="1"/>
+      <relation target="n26_zcpd" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n26_zcpd" name="n26" xy="187,42" size="160,62" fontSize="46" text="111111">
+      <gearDisplay controller="c1" pages="1"/>
+    </text>
+    <image id="n30_f00a" name="n30" src="f00a9y" fileName="image/n13.png" xy="211,25" pivot="1,0" size="386,100" color="#95ec69">
+      <gearDisplay controller="c1" pages="0"/>
+      <relation target="n31_f00a" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </image>
+    <text id="n31_f00a" name="n31" xy="245,43" pivot="1,0" size="316,62" fontSize="46" align="right" text="111111111111">
+      <gearDisplay controller="c1" pages="0"/>
+      <relation target="n21_zcpd" sidePair="right-right"/>
+    </text>
+  </displayList>
+  <relation target="n25_zcpd" sidePair="bottomext-bottom"/>
+  <relation target="n30_f00a" sidePair="bottomext-bottom"/>
+</component>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,1334">
+  <controller name="c2" pages="0,,1," selected="0"/>
+  <displayList>
+    <component id="n29_f00a" name="itemChat" src="f00aa5" fileName="items/itemChat.xml" xy="750,0">
+      <gearDisplay controller="c2" pages="1"/>
+      <gearXY controller="c2" pages="0,1" values="751,0,1.001,0|0,0,0,0" tween="true" ease="Quad.InOut" duration=".2" positionsInPercent="true"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n30_f00a" name="itemChatMain" src="otn10" fileName="items/itemChatMain.xml" xy="0,0">
+      <gearXY controller="c2" pages="1" values="-750,0,-1,0" default="0,0,0,0" tween="true" ease="Quad.InOut" duration=".2" positionsInPercent="true"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

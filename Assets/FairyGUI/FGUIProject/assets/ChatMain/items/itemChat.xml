@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,1334">
+  <displayList>
+    <component id="n29_f00a" name="itemChatPage" src="f00aa0" fileName="items/itemChatPage.xml" xy="0,141" size="750,1016">
+      <relation target="" sidePair="width-width"/>
+      <relation target="n31_f00a" sidePair="bottomext-top"/>
+      <relation target="n30_f00a" sidePair="top-bottom"/>
+    </component>
+    <component id="n30_f00a" name="itemChatTop" src="zcpd9s" fileName="items/itemChatTop.xml" xy="0,0" size="750,141" controller="c1,1">
+      <relation target="" sidePair="width-width"/>
+    </component>
+    <graph id="n31_f00a" name="n31" xy="0,1156" size="750,178" type="rect" lineSize="0" fillColor="#ffeeeeee">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+    </graph>
+    <graph id="n32_f00a" name="n32" xy="0,1156" size="750,2" type="rect" lineSize="0" fillColor="#ff999999">
+      <relation target="" sidePair="width-width"/>
+      <relation target="n31_f00a" sidePair="bottom-top"/>
+    </graph>
+  </displayList>
+</component>

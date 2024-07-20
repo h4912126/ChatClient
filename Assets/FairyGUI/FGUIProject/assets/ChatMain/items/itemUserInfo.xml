@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,1019">
+  <displayList>
+    <graph id="n26_f00a" name="n26" xy="0,191" size="750,828" type="rect" lineSize="0" fillColor="#ffcccccc">
+      <relation target="" sidePair="width-width,bottomext-bottom"/>
+    </graph>
+    <graph id="n28_f00a" name="n28" xy="0,0" size="750,189" type="rect" lineSize="0" fillColor="#ffeeeeee">
+      <relation target="" sidePair="width-width"/>
+    </graph>
+    <component id="n23_f00a" name="itemUserHead" src="qp799o" fileName="items/itemUserHead.xml" xy="26,27"/>
+    <text id="n24_f00a" name="textUserName" xy="169,34" size="248,66" fontSize="50" text="userName"/>
+    <text id="n25_f00a" name="textUserId" xy="169,106" size="195,49" fontSize="36" color="#999999" text="id:1600000"/>
+    <image id="n27_f00a" name="n27" src="qp791" fileName="image/Free Flat Arrow 1 E Icon.png" xy="645,66" size="50,50" aspect="true" color="#cccccc">
+      <relation target="" sidePair="right-right"/>
+    </image>
+  </displayList>
+</component>
