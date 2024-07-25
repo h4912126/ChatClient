@@ -5,15 +5,19 @@
     <graph id="n6_qp79" name="n6" xy="0,2" size="750,176" type="rect" lineSize="0" lineColor="#02000000" fillColor="#ffdddddd">
       <relation target="" sidePair="width-width"/>
     </graph>
-    <component id="n2_qp79" name="n2" src="qp798h" fileName="items/RadioBtn1.xml" xy="-39,-40" pivot="0.5,0.5" size="259,259" scale="0.5,0.5">
+    <component id="n2_qp79" name="btn0" src="qp798h" fileName="items/RadioBtn1.xml" xy="-39,-40" pivot="0.5,0.5" size="259,259" scale="0.5,0.5">
       <relation target="" sidePair="center-center%,middle-middle"/>
       <Button checked="true" icon="ui://i49jx3tvqp7975" controller="c1" page="0"/>
     </component>
-    <component id="n3_qp79" name="n3" src="qp798h" fileName="items/RadioBtn1.xml" xy="339,-40" pivot="0.5,0.5" size="259,259" scale="0.5,0.5">
+    <component id="n11_f00a" name="btn1" src="qp798h" fileName="items/RadioBtn1.xml" xy="150,-40" pivot="0.5,0.5" size="259,259" scale="0.5,0.5">
+      <relation target="" sidePair="center-center%,middle-middle"/>
+      <Button icon="ui://i49jx3tvqp792i" controller="c1" page="1"/>
+    </component>
+    <component id="n3_qp79" name="btn2" src="qp798h" fileName="items/RadioBtn1.xml" xy="339,-40" pivot="0.5,0.5" size="259,259" scale="0.5,0.5">
       <relation target="" sidePair="center-center%,middle-middle"/>
       <Button icon="ui://i49jx3tvqp793m" controller="c1" page="2"/>
     </component>
-    <component id="n10_zcpd" name="n10" src="qp798h" fileName="items/RadioBtn1.xml" xy="528,-40" pivot="0.5,0.5" size="259,259" scale="0.5,0.5">
+    <component id="n10_zcpd" name="btn3" src="qp798h" fileName="items/RadioBtn1.xml" xy="528,-40" pivot="0.5,0.5" size="259,259" scale="0.5,0.5">
       <relation target="" sidePair="center-center%,middle-middle"/>
       <Button icon="ui://i49jx3tvqp792e" controller="c1" page="4"/>
     </component>
@@ -23,9 +27,5 @@
     <graph id="n9_qp79" name="n9" xy="0,176" size="750,2" type="rect" lineSize="0" fillColor="#ff999999">
       <relation target="" sidePair="width-width"/>
     </graph>
-    <component id="n11_f00a" name="n11" src="qp798h" fileName="items/RadioBtn1.xml" xy="150,-40" pivot="0.5,0.5" size="259,259" scale="0.5,0.5">
-      <relation target="" sidePair="center-center%,middle-middle"/>
-      <Button icon="ui://i49jx3tvqp792i" controller="c1" page="1"/>
-    </component>
   </displayList>
 </component>

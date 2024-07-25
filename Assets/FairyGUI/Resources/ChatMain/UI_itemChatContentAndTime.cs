@@ -8,6 +8,8 @@ namespace ChatMain
     public partial class UI_itemChatContentAndTime : GComponent
     {
         public Controller m_showTime;
+        public GTextField m_textTime;
+        public UI_itemChatContent m_itemchatContent;
         public const string URL = "ui://i49jx3tvf00aa7";
 
         public static UI_itemChatContentAndTime CreateInstance()
@@ -20,6 +22,8 @@ namespace ChatMain
             base.ConstructFromXML(xml);
 
             m_showTime = GetControllerAt(0);
+            m_textTime = (GTextField)GetChildAt(0);
+            m_itemchatContent = (UI_itemChatContent)GetChildAt(1);
         }
     }
 }

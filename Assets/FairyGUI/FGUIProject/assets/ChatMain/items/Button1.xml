@@ -5,6 +5,9 @@
     <image id="n0_f00a" name="n0" src="f00a9y" fileName="image/n13.png" xy="0,0" size="123,60" color="#cccccc">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
+    <loader id="n2_gqv9" name="icon" xy="0,0" size="123,60" fill="scaleFree">
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
     <text id="n1_f00a" name="title" xy="61,30" pivot="0.5,0.5" anchor="true" size="64,42" fontSize="30" align="center" vAlign="middle" text="添加">
       <relation target="" sidePair="width-width,height-height"/>
     </text>

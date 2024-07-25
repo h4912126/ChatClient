@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="750,150">
-  <controller name="c1" pages="0,self,1,other" selected="1"/>
-  <controller name="showTime" pages="0,,1," selected="0"/>
+<component size="750,200">
+  <controller name="messagetype" pages="0,self,1,other" selected="0"/>
   <displayList>
-    <component id="n20_zcpd" name="n20" src="qp799o" fileName="items/itemUserHead.xml" xy="30,13" pivot="0,0.5" scale="0.9,0.9">
-      <gearDisplay controller="c1" pages="1"/>
+    <component id="n20_zcpd" name="itemUserHeadOther" src="qp799o" fileName="items/itemUserHead.xml" xy="30,13" pivot="0,0.5" scale="0.9,0.9">
+      <gearDisplay controller="messagetype" pages="1"/>
     </component>
-    <component id="n21_zcpd" name="n21" src="qp799o" fileName="items/itemUserHead.xml" xy="600,13" pivot="1,0.5" scale="0.9,0.9">
-      <gearDisplay controller="c1" pages="0"/>
+    <component id="n21_zcpd" name="itemUserHeadSelf" src="qp799o" fileName="items/itemUserHead.xml" xy="600,13" pivot="1,0.5" scale="0.9,0.9">
+      <gearDisplay controller="messagetype" pages="0"/>
       <relation target="" sidePair="right-right,top-top"/>
     </component>
-    <image id="n25_zcpd" name="n25" src="f00a9y" fileName="image/n13.png" xy="153,24" size="230,100">
-      <gearDisplay controller="c1" pages="1"/>
+    <image id="n25_zcpd" name="n25" src="f00a9y" fileName="image/n13.png" xy="153,74" size="230,100">
+      <gearDisplay controller="messagetype" pages="1"/>
       <relation target="n26_zcpd" sidePair="width-width,height-height"/>
     </image>
-    <text id="n26_zcpd" name="n26" xy="187,42" size="160,62" fontSize="46" text="111111">
-      <gearDisplay controller="c1" pages="1"/>
+    <text id="n26_zcpd" name="textOhter" xy="187,92" size="160,62" fontSize="46" text="111111">
+      <gearDisplay controller="messagetype" pages="1"/>
     </text>
-    <image id="n30_f00a" name="n30" src="f00a9y" fileName="image/n13.png" xy="211,25" pivot="1,0" size="386,100" color="#95ec69">
-      <gearDisplay controller="c1" pages="0"/>
+    <image id="n30_f00a" name="n30" src="f00a9y" fileName="image/n13.png" xy="211,75" pivot="1,0" size="386,100" color="#95ec69">
+      <gearDisplay controller="messagetype" pages="0"/>
       <relation target="n31_f00a" sidePair="width-width,height-height,center-center,middle-middle"/>
     </image>
-    <text id="n31_f00a" name="n31" xy="245,43" pivot="1,0" size="316,62" fontSize="46" align="right" text="111111111111">
-      <gearDisplay controller="c1" pages="0"/>
+    <text id="n31_f00a" name="textSelf" xy="245,93" pivot="1,0" size="316,62" fontSize="46" align="right" text="111111111111">
+      <gearDisplay controller="messagetype" pages="0"/>
       <relation target="n21_zcpd" sidePair="right-right"/>
+    </text>
+    <text id="n32_gqv9" name="textNameOther" xy="158,13" size="132,44" fontSize="32" color="#333333" text="其他玩家">
+      <gearDisplay controller="messagetype" pages="1"/>
+      <relation target="n20_zcpd" sidePair="left-left,top-top"/>
+    </text>
+    <text id="n33_gqv9" name="textNameSelf" xy="597,13" pivot="1,0" anchor="true" size="54,44" fontSize="32" color="#333333" align="right" text="ziji ">
+      <gearDisplay controller="messagetype" pages="0"/>
+      <relation target="n21_zcpd" sidePair="right-right,top-top"/>
     </text>
   </displayList>
   <relation target="n25_zcpd" sidePair="bottomext-bottom"/>

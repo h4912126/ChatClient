@@ -9,6 +9,7 @@ namespace ChatMain
     {
         public Controller m_c1;
         public GTextField m_textFriendNmae;
+        public GButton m_chatBack;
         public const string URL = "ui://i49jx3tvzcpd9s";
 
         public static UI_itemChatTop CreateInstance()
@@ -22,6 +23,7 @@ namespace ChatMain
 
             m_c1 = GetControllerAt(0);
             m_textFriendNmae = (GTextField)GetChildAt(2);
+            m_chatBack = (GButton)GetChildAt(3);
         }
     }
 }

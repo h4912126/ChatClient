@@ -7,7 +7,7 @@ namespace ChatMain
 {
     public partial class UI_itemChatPage : GComponent
     {
-        public GList m__list2;
+        public GList m_list2;
         public const string URL = "ui://i49jx3tvf00aa0";
 
         public static UI_itemChatPage CreateInstance()
@@ -19,7 +19,7 @@ namespace ChatMain
         {
             base.ConstructFromXML(xml);
 
-            m__list2 = (GList)GetChildAt(1);
+            m_list2 = (GList)GetChildAt(1);
         }
     }
 }

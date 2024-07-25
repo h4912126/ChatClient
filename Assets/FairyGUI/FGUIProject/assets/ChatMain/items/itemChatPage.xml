@@ -4,7 +4,7 @@
     <graph id="n20_f00a" name="n20" xy="0,0" size="750,1017" type="rect" lineSize="0" fillColor="#ffdddddd">
       <relation target="" sidePair="width-width,height-height"/>
     </graph>
-    <list id="n19_zcpd" name="_list2" xy="0,0" size="750,1017" overflow="scroll" defaultItem="ui://i49jx3tvf00aa7">
+    <list id="n19_zcpd" name="list2" xy="0,0" size="750,1017" overflow="scroll" defaultItem="ui://i49jx3tvf00aa7">
       <relation target="" sidePair="width-width,height-height"/>
       <item/>
       <item/>

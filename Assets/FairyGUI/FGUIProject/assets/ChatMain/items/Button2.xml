@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="70,70" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="3"/>
+  <displayList>
+    <image id="n0_snlv" name="n0" src="qp791" fileName="image/Free Flat Arrow 1 E Icon.png" xy="35,35" pivot="0.5,0.5" anchor="true" size="70,70" scale="-1,1" color="#333333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+  <Button downEffect="scale" downEffectValue=".9"/>
+</component>

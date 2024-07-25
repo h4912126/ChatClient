@@ -74,6 +74,9 @@
     <component id="f00aa6" name="ChatMain.xml" path="/" exported="true"/>
     <component id="f00aa7" name="itemChatContentAndTime.xml" path="/items/"/>
     <component id="f00aa8" name="AutoBtn1.xml" path="/items/"/>
+    <image id="ok4ha9" name="allChatRoom.jpg" path="/image/head/" exported="true"/>
+    <component id="snlvaa" name="Button2.xml" path="/items/"/>
+    <image id="i70uab" name="head_publicRoom.jpg" path="/image/head/" exported="true"/>
   </resources>
   <publish name="" genCode="true"/>
 </packageDescription>

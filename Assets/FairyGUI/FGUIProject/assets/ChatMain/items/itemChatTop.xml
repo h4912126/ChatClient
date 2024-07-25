@@ -12,9 +12,9 @@
     <text id="n20_zcpd" name="textFriendNmae" xy="374,88" pivot="0.5,0" anchor="true" size="194,49" fontSize="36" align="center" text="Chat Room">
       <relation target="" sidePair="center-center,middle-middle"/>
     </text>
-    <image id="n21_f00a" name="n21" src="qp791" fileName="image/Free Flat Arrow 1 E Icon.png" xy="35,78" pivot="0.5,0.5" size="70,70" aspect="true" color="#000000" flip="hz">
+    <component id="n21_f00a" name="chatBack" src="snlvaa" fileName="items/Button2.xml" xy="35,78" size="70,70" aspect="true">
       <gearDisplay controller="c1" pages="1"/>
       <relation target="" sidePair="middle-middle"/>
-    </image>
+    </component>
   </displayList>
 </component>

@@ -15,6 +15,7 @@ namespace ChatMain
             UIObjectFactory.SetPackageItemExtension(UI_ChatMain.URL, typeof(UI_ChatMain));
             UIObjectFactory.SetPackageItemExtension(UI_itemChatContentAndTime.URL, typeof(UI_itemChatContentAndTime));
             UIObjectFactory.SetPackageItemExtension(UI_itemChatMain.URL, typeof(UI_itemChatMain));
+            UIObjectFactory.SetPackageItemExtension(UI_itemUserHead.URL, typeof(UI_itemUserHead));
             UIObjectFactory.SetPackageItemExtension(UI_itemChatEntry.URL, typeof(UI_itemChatEntry));
             UIObjectFactory.SetPackageItemExtension(UI_itemChatBottom.URL, typeof(UI_itemChatBottom));
             UIObjectFactory.SetPackageItemExtension(UI_itemChatTop.URL, typeof(UI_itemChatTop));

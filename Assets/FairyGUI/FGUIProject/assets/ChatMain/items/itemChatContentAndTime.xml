@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="750,149">
-  <controller name="showTime" pages="0,,1," selected="0"/>
+<component size="750,223">
+  <controller name="showTime" pages="0,,1," selected="1"/>
   <displayList>
-    <text id="n1_f00a" name="n1" xy="229,-55" pivot="0.5,0" size="291,42" fontSize="30" align="center" text="2024/07/22 23:59:59">
+    <text id="n1_f00a" name="textTime" xy="228,0" pivot="0.5,0" size="291,42" fontSize="30" color="#666666" align="center" text="2024/07/22 23:59:59">
       <gearDisplay controller="showTime" pages="1"/>
-      <gearXY controller="showTime" pages="0,1" values="229,-55,0.305,-0.349|229,24,0.305,0.112" positionsInPercent="true"/>
+      <gearXY controller="showTime" pages="0,1" values="228,-33,0.305,-0.177|228,0,0.305,0.005" positionsInPercent="true"/>
+      <relation target="" sidePair="center-center"/>
     </text>
-    <component id="n0_f00a" name="n0" src="zcpd9t" fileName="items/itemChatContent.xml" xy="0,-1">
+    <component id="n0_f00a" name="itemchatContent" src="zcpd9t" fileName="items/itemChatContent.xml" xy="0,22">
       <relation target="n1_f00a" sidePair="top-bottom"/>
-      <relation target="" sidePair="width-width,height-height"/>
+      <relation target="" sidePair="width-width"/>
     </component>
   </displayList>
   <relation target="n0_f00a" sidePair="bottomext-bottom"/>

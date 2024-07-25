@@ -9,6 +9,8 @@ namespace ChatMain
     {
         public UI_itemChatPage m_itemChatPage;
         public UI_itemChatTop m_itemChatTop;
+        public GTextInput m_textInput;
+        public GButton m_btnSend;
         public const string URL = "ui://i49jx3tvf00aa5";
 
         public static UI_itemChat CreateInstance()
@@ -22,6 +24,8 @@ namespace ChatMain
 
             m_itemChatPage = (UI_itemChatPage)GetChildAt(0);
             m_itemChatTop = (UI_itemChatTop)GetChildAt(1);
+            m_textInput = (GTextInput)GetChildAt(5);
+            m_btnSend = (GButton)GetChildAt(6);
         }
     }
 }

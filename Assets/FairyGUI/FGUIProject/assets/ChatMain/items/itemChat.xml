@@ -9,12 +9,23 @@
     <component id="n30_f00a" name="itemChatTop" src="zcpd9s" fileName="items/itemChatTop.xml" xy="0,0" size="750,141" controller="c1,1">
       <relation target="" sidePair="width-width"/>
     </component>
-    <graph id="n31_f00a" name="n31" xy="0,1156" size="750,178" type="rect" lineSize="0" fillColor="#ffeeeeee">
+    <graph id="n31_f00a" name="n31" xy="0,1156" size="750,178" type="rect" lineSize="0" fillColor="#ffe5e5e5">
       <relation target="" sidePair="width-width,bottom-bottom"/>
     </graph>
     <graph id="n32_f00a" name="n32" xy="0,1156" size="750,2" type="rect" lineSize="0" fillColor="#ff999999">
       <relation target="" sidePair="width-width"/>
       <relation target="n31_f00a" sidePair="bottom-top"/>
     </graph>
+    <graph id="n34_gqv9" name="n34" xy="35,1197" size="526,85" type="rect" lineSize="0" corner="15,15,15,15">
+      <relation target="" sidePair="left-left,bottom-bottom"/>
+      <relation target="n36_gqv9" sidePair="rightext-left"/>
+    </graph>
+    <text id="n33_gqv9" name="textInput" xy="48,1201" size="502,79" fontSize="56" vAlign="bottom" autoSize="none" text="" input="true">
+      <relation target="n34_gqv9" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </text>
+    <component id="n36_gqv9" name="btnSend" src="f00aa1" fileName="items/Button1.xml" xy="592,1211">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+      <Button title="发送" icon="ui://i49jx3tvf00a9x"/>
+    </component>
   </displayList>
 </component>

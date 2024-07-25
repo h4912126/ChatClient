@@ -7,7 +7,7 @@ namespace ChatMain
 {
     public partial class UI_itemUserInfo : GComponent
     {
-        public GComponent m_itemUserHead;
+        public UI_itemUserHead m_itemUserHead;
         public GTextField m_textUserName;
         public GTextField m_textUserId;
         public const string URL = "ui://i49jx3tvf00aa3";
@@ -21,7 +21,7 @@ namespace ChatMain
         {
             base.ConstructFromXML(xml);
 
-            m_itemUserHead = (GComponent)GetChildAt(2);
+            m_itemUserHead = (UI_itemUserHead)GetChildAt(2);
             m_textUserName = (GTextField)GetChildAt(3);
             m_textUserId = (GTextField)GetChildAt(4);
         }
