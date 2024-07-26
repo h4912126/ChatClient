@@ -4,9 +4,12 @@ using ChatMain;
 using FairyGUI;
 using System;
 using System.Collections;
+using UnityEngine.UI;
+
 
 public class ChatMainWin : MonoBehaviour
 {
+    public InputField searchInput;
     TcpLoginClient TcpLogin;
     public Action<bool, string> OnLoginResult;
     UI_ChatMain chatMain;
@@ -15,6 +18,7 @@ public class ChatMainWin : MonoBehaviour
     private float screenHeight = Screen.height;
     private string ChatRoomId = "0";
     public bool isConnect = false;
+
     private void Awake()
     {
         Init();
@@ -22,7 +26,7 @@ public class ChatMainWin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Application.targetFrameRate = 60;
         open();
        
     }
@@ -61,6 +65,9 @@ public class ChatMainWin : MonoBehaviour
             TcpLogin.SendMsgByChatId(ChatRoomId, content);
             chatMain.m_itemChat.m_textInput.text = "";
         });
+        chatMain.m_itemChat.m_textInput.onFocusIn.Add(SetKeyboardHeight);
+        chatMain.m_itemChat.m_textInput.hideInput = true;
+        chatMain.m_itemChat.m_textInput.onFocusOut.Add(SetKeyboardHeight2);
         chatMain.m_itemChatMain.m_list1.itemRenderer = RenderListItem;
         chatMain.m_itemChat.m_itemChatPage.m_list2.itemRenderer = RenderListItem2;
     }
@@ -132,6 +139,7 @@ public class ChatMainWin : MonoBehaviour
                 var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
                 chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = count;
                 chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count - 1);
+                SetKeyboardHeight2();
                 chatMain.m_c2.selectedIndex = 1;
             }
             else {
@@ -154,7 +162,9 @@ public class ChatMainWin : MonoBehaviour
         );
     }
     void RenderListItem2(int index, GObject obj) {
+
         UI_itemChatContentAndTime item = (UI_itemChatContentAndTime)obj;
+        item.width = chatMain.m_itemChat.m_itemChatPage.m_list2.width;
         item.m_showTime.selectedIndex = 1;
         var data = TcpLogin.userChatInfo[ChatRoomId][index];
         long nowTimes = 28800 + long.Parse(data[0]);//utc时间手动转当前时区时间
@@ -162,21 +172,39 @@ public class ChatMainWin : MonoBehaviour
         string formattedDateTime = dateTime.ToString("yyyy/MM/dd HH:mm:ss");
         item.m_textTime.text = formattedDateTime;
         var theId = data[1].ToString();
+        string context = data[5];
+        item.m_itemchatContent.m_textSelf1.text = context; //用于适配高度
+        item.m_itemchatContent.m_textOhter1.text = context;
+        item.m_itemchatContent.m_textOhter.text = context;
+        item.m_itemchatContent.m_textSelf.text = context;
         if (theId == TcpLogin.userInfo.UserID)
         {
             item.m_itemchatContent.m_messagetype.selectedIndex = 0;
             item.m_itemchatContent.m_itemUserHeadSelf.m_loaders.url = $"ui://ChatMain/{data[3]}";
-            item.m_itemchatContent.m_textSelf.text = data[5];
             item.m_itemchatContent.m_textNameSelf.text = data[2];
+            if (item.m_itemchatContent.m_textSelf1.width < item.m_itemchatContent.m_textSelf.width)
+            {
+                item.m_itemchatContent.m_overlength.selectedIndex = 1;
+            }
+            else {
+                item.m_itemchatContent.m_overlength.selectedIndex = 0;
+            }
         }
         else {
             item.m_itemchatContent.m_messagetype.selectedIndex = 1;
             item.m_itemchatContent.m_itemUserHeadOther.m_loaders.url = $"ui://ChatMain/{data[3]}";
-            item.m_itemchatContent.m_textOhter.text = data[5];
+
             item.m_itemchatContent.m_textNameOther.text = data[2];
+            if (item.m_itemchatContent.m_textOhter1.width < item.m_itemchatContent.m_textOhter.width)
+            {
+                item.m_itemchatContent.m_overlength.selectedIndex = 1;
+            }
+            else
+            {
+                item.m_itemchatContent.m_overlength.selectedIndex = 0;
+            }
         }
-
-
+        item.height = item.m_itemchatContent.m_pos.y;
     }
     void OnChatInfoResultHandler(bool success, string message) {
 
@@ -184,6 +212,7 @@ public class ChatMainWin : MonoBehaviour
         { var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
             chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = count;
             chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count-1);
+            SetKeyboardHeight2();
             chatMain.m_c2.selectedIndex = 1;
         }
         else
@@ -199,6 +228,7 @@ public class ChatMainWin : MonoBehaviour
             var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
             chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = count;
             chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count-1);
+            SetKeyboardHeight2();
             chatMain.m_c2.selectedIndex = 1;
         }
         else
@@ -218,7 +248,46 @@ public class ChatMainWin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (chatMain.m_itemChat.m_textInput.focused ) {
+            SetKeyboardHeight();
+        }
+       
     }
+    void SetKeyboardHeight() {
+        int mHeight = GetKeyboardHeight();
+        if ((screenHeight - mHeight - 20) < (screenHeight - 157))
+        {
+            chatMain.m_itemChat.m_textInput.y = screenHeight - mHeight - 20;
+        }
+        else {
+            chatMain.m_itemChat.m_textInput.y = screenHeight - 157;
+        }
+    }
+    void SetKeyboardHeight2() {
+        chatMain.m_itemChat.m_textInput.y = screenHeight - 157 ;
+    }
+    /// <summary>
+    /// 获取安卓平台上键盘的高度
+    /// </summary>
+    /// <returns></returns>
+    public int GetKeyboardHeight() { 
+#if UNITY_EDITOR
+        return 180;
+#elif UNITY_ANDROID
+        using (AndroidJavaClass UnityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        {
+            AndroidJavaObject View = UnityClass.GetStatic<AndroidJavaObject>("currentActivity").
+                Get<AndroidJavaObject>("mUnityPlayer").Call<AndroidJavaObject>("getView");
+
+            using (AndroidJavaObject Rct = new AndroidJavaObject("android.graphics.Rect"))
+            {
+                View.Call("getWindowVisibleDisplayFrame", Rct);
+                int res = Screen.height - Rct.Call<int>("height");
+                return res;
+            }
+        }
+#endif
+    }
+
 
 }

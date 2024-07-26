@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="750,200">
   <controller name="messagetype" pages="0,self,1,other" selected="0"/>
+  <controller name="overlength" exported="true" pages="0,false,1,true" selected="1"/>
   <displayList>
     <component id="n20_zcpd" name="itemUserHeadOther" src="qp799o" fileName="items/itemUserHead.xml" xy="30,13" pivot="0,0.5" scale="0.9,0.9">
       <gearDisplay controller="messagetype" pages="1"/>
@@ -11,17 +12,21 @@
     </component>
     <image id="n25_zcpd" name="n25" src="f00a9y" fileName="image/n13.png" xy="153,74" size="230,100">
       <gearDisplay controller="messagetype" pages="1"/>
+      <gearDisplay2 controller="overlength" pages="0" condition="0"/>
       <relation target="n26_zcpd" sidePair="width-width,height-height"/>
     </image>
     <text id="n26_zcpd" name="textOhter" xy="187,92" size="160,62" fontSize="46" text="111111">
       <gearDisplay controller="messagetype" pages="1"/>
+      <gearDisplay2 controller="overlength" pages="0" condition="0"/>
     </text>
     <image id="n30_f00a" name="n30" src="f00a9y" fileName="image/n13.png" xy="211,75" pivot="1,0" size="386,100" color="#95ec69">
       <gearDisplay controller="messagetype" pages="0"/>
+      <gearDisplay2 controller="overlength" pages="0" condition="0"/>
       <relation target="n31_f00a" sidePair="width-width,height-height,center-center,middle-middle"/>
     </image>
     <text id="n31_f00a" name="textSelf" xy="245,93" pivot="1,0" size="316,62" fontSize="46" align="right" text="111111111111">
       <gearDisplay controller="messagetype" pages="0"/>
+      <gearDisplay2 controller="overlength" pages="0" condition="0"/>
       <relation target="n21_zcpd" sidePair="right-right"/>
     </text>
     <text id="n32_gqv9" name="textNameOther" xy="158,13" size="132,44" fontSize="32" color="#333333" text="其他玩家">
@@ -32,7 +37,30 @@
       <gearDisplay controller="messagetype" pages="0"/>
       <relation target="n21_zcpd" sidePair="right-right,top-top"/>
     </text>
+    <image id="n35_k8ac" name="pic" src="f00a9y" fileName="image/n13.png" xy="219,75" pivot="1,0" size="374,100" color="#95ec69">
+      <gearDisplay controller="messagetype" pages="0"/>
+      <gearDisplay2 controller="overlength" pages="1" condition="0"/>
+      <relation target="n34_k8ac" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </image>
+    <text id="n34_k8ac" name="textSelf1" xy="253,93" pivot="1,0" size="316,62" fontSize="46" autoSize="height" text="111111111111">
+      <gearDisplay controller="messagetype" pages="0"/>
+      <gearDisplay2 controller="overlength" pages="1" condition="0"/>
+      <relation target="n20_zcpd" sidePair="left-left"/>
+      <relation target="" sidePair="width-width"/>
+    </text>
+    <image id="n37_k8ac" name="n37" src="f00a9y" fileName="image/n13.png" xy="153,74" size="386,100">
+      <gearDisplay controller="messagetype" pages="1"/>
+      <gearDisplay2 controller="overlength" pages="1" condition="0"/>
+      <relation target="n36_k8ac" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n36_k8ac" name="textOhter1" xy="187,92" size="316,62" fontSize="46" autoSize="height" text="111111111111">
+      <gearDisplay controller="messagetype" pages="1"/>
+      <gearDisplay2 controller="overlength" pages="1" condition="0"/>
+      <relation target="n21_zcpd" sidePair="rightext-right"/>
+    </text>
+    <loader id="n38_k8ac" name="pos" xy="377,229" size="1,1">
+      <relation target="n34_k8ac" sidePair="bottom-bottom"/>
+    </loader>
   </displayList>
-  <relation target="n25_zcpd" sidePair="bottomext-bottom"/>
-  <relation target="n30_f00a" sidePair="bottomext-bottom"/>
+  <relation target="n34_k8ac" sidePair="bottomext-bottom%"/>
 </component>
