@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="vpzz49eo">
+  <resources>
+    <image id="9o120" name="login_bg.jpg" path="/image/"/>
+    <component id="9o121" name="LoginMain.xml" path="/" exported="true"/>
+    <image id="qp792y" name="Free Flat Toggle Thumb Centre Icon.png" path="/image/" scale="9grid" scale9grid="128,64,3,128"/>
+    <image id="qp7932" name="Free Flat Toggle Cage Icon.png" path="/image/" scale="9grid" scale9grid="74,92,112,53"/>
+    <component id="9o123" name="loginbar.xml" path="/items/"/>
+  </resources>
+  <publish name="" genCode="true"/>
+</packageDescription>

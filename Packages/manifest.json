@@ -1,7 +1,19 @@
 {
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.tuyoogame.yooasset"
+      ]
+    }
+  ],
   "dependencies": {
-    "com.unity.collab-proxy": "1.15.4",
+    "com.code-philosophy.hybridclr": "https://gitee.com/focus-creative-games/hybridclr_unity.git",
+    "com.tuyoogame.yooasset": "2.1.2",
+    "com.unity.collab-proxy": "2.4.4",
     "com.unity.feature.development": "1.0.1",
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.7.6",
     "com.unity.ugui": "1.0.0",

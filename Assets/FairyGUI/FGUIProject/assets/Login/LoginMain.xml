@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,1334">
+  <controller name="c1" pages="0,init,1,hotupdate,2,load" selected="0"/>
+  <displayList>
+    <loader id="n0_9o12" name="n0" xy="0,0" size="750,1334" url="ui://vpzz49eo9o120" align="center" vAlign="middle" fill="scaleFree">
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
+    <component id="n7_9o12" name="loginbar" src="9o123" fileName="items/loginbar.xml" xy="72,1158" size="605,30">
+      <gearDisplay controller="c1" pages="1"/>
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+      <ProgressBar value="30" max="100"/>
+    </component>
+    <text id="n8_9o12" name="textinfo" xy="374,1097" pivot="0.5,0" anchor="true" size="633,49" fontSize="36" color="#ffffff" align="center" autoSize="shrink" text="进度  100%">
+      <gearDisplay controller="c1" pages="1"/>
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </text>
+    <text id="n9_v9qz" name="textState" xy="253,630" pivot="0.5,0" size="244,73" fontSize="44" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" text="检测更新">
+      <gearText controller="c1" pages="0,1,2" values="检测更新|更新资源|加载资源"/>
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+  </displayList>
+</component>

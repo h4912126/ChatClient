@@ -15,10 +15,8 @@
     <image id="qp792d" name="Free Flat Plus Icon.png" path="/image/"/>
     <image id="qp792e" name="Free Flat Person Icon.png" path="/image/"/>
     <image id="qp792i" name="Free Flat People 1 Icon.png" path="/image/"/>
-    <image id="qp792y" name="Free Flat Toggle Thumb Centre Icon.png" path="/image/"/>
     <image id="qp792z" name="Free Flat Toggle Right Icon.png" path="/image/"/>
     <image id="qp7930" name="Free Flat Toggle Left Icon.png" path="/image/"/>
-    <image id="qp7932" name="Free Flat Toggle Cage Icon.png" path="/image/"/>
     <image id="qp7933" name="Free Flat Thumbs Up Icon.png" path="/image/"/>
     <image id="qp7935" name="Free Flat Lock Closed Icon.png" path="/image/"/>
     <image id="qp793c" name="Free Flat Media Stop Icon.png" path="/image/"/>
@@ -63,7 +61,6 @@
     <component id="zcpd9r" name="itemChatBottom.xml" path="/items/"/>
     <component id="zcpd9s" name="itemChatTop.xml" path="/items/"/>
     <component id="zcpd9t" name="itemChatContent.xml" path="/items/"/>
-    <image id="zcpd9w" name="221751614_0_final.png" path="/image/"/>
     <image id="f00a9x" name="图层 1 拷贝1.png" path="/image/" scale="9grid" scale9grid="11,12,22,24"/>
     <image id="f00a9y" name="n13.png" path="/image/" scale="9grid" scale9grid="30,30,60,60" qualityOption="source"/>
     <component id="f00aa0" name="itemChatPage.xml" path="/items/"/>

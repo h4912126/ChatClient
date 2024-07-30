@@ -3,8 +3,8 @@
   <displayList>
     <component id="n29_f00a" name="itemChatPage" src="f00aa0" fileName="items/itemChatPage.xml" xy="0,141" size="750,1016">
       <relation target="" sidePair="width-width"/>
-      <relation target="n31_f00a" sidePair="bottomext-top"/>
       <relation target="n30_f00a" sidePair="top-bottom"/>
+      <relation target="n32_f00a" sidePair="bottomext-top"/>
     </component>
     <component id="n30_f00a" name="itemChatTop" src="zcpd9s" fileName="items/itemChatTop.xml" xy="0,0" size="750,141" controller="c1,1">
       <relation target="" sidePair="width-width"/>
