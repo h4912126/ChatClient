@@ -167,18 +167,7 @@ public class ChatMainWin : ScriptableObject
             else {
                 TcpLogin.GetChatInfoByChatId(ChatRoomId, 0, 99);
             }
-
-
-            item.m_c1.selectedIndex = 1;
-            /*IEnumerator MyCoroutine2()
-            {
-                Debug.Log("Coroutine started");
-                yield return new WaitForSeconds(1); // µÈ´ý1Ãë  
-                Debug.Log("Coroutine finished waiting");
-                item.m_c1.selectedIndex = 0;
-            }
-            StartCoroutine(MyCoroutine2());*/
-
+            item.m_play.Play();
         }
             
         );
