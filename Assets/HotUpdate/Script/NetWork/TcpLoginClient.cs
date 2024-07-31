@@ -17,7 +17,7 @@ public class PlayerData
 
 }
 
-public class TcpLoginClient : MonoBehaviour
+public class TcpLoginClient : ScriptableObject
 {
 
     private SynchronizationContext _mainThreadContext;

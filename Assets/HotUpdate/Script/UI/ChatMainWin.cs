@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using YooAsset;
 
-public class ChatMainWin : MonoBehaviour
+public class ChatMainWin : ScriptableObject
 {
     public InputField searchInput;
     TcpLoginClient TcpLogin;
@@ -40,8 +40,10 @@ public class ChatMainWin : MonoBehaviour
     }
     void Init()
     {
+        Debug.Log("开始初始化");
         UIPackage.AddPackage("ChatMain", LoadFunc);
         ChatMainBinder.BindAll();
+        Debug.Log("开始实列");
         chatMain = UI_ChatMain.CreateInstance();
         win = new();
         win.contentPane = chatMain.asCom;
@@ -78,7 +80,7 @@ public class ChatMainWin : MonoBehaviour
         chatMain.m_itemChat.m_textInput.onFocusOut.Add(SetKeyboardHeight2);
         chatMain.m_itemChatMain.m_list1.itemRenderer = RenderListItem;
         chatMain.m_itemChat.m_itemChatPage.m_list2.itemRenderer = RenderListItem2;
-                TcpLogin.OnChatRoomResult += OnGetChatRoomResultHandler;
+        TcpLogin.OnChatRoomResult += OnGetChatRoomResultHandler;
         TcpLogin.OnChatInfoResult += OnChatInfoResultHandler;
         TcpLogin.OnChatAddResult += OnChatAddResultHandler;
     }
@@ -90,7 +92,7 @@ public class ChatMainWin : MonoBehaviour
         //TcpLogin = new TcpLoginClient();
         //TcpLogin.Login();
 
-        Debug.Log("测试!!!!!!!!!!!!!!");
+        Debug.Log("测试!!!!!!!!");
         FreshPage3();
         win.Show();
     }
@@ -108,14 +110,14 @@ public class ChatMainWin : MonoBehaviour
         }
 
     }
-    public void  Begin() {
+    public void Begin() {
 
-        //Debug.Log("登录成功");
-        TcpLogin = new();
+        Debug.Log("登录成功");
+        TcpLogin = ScriptableObject.CreateInstance<TcpLoginClient>();
         TcpLogin.OnLoginResult += OnLoginResultHandler;
         TcpLogin.Login();
         //TcpLogin.GetChatRoomInfo(0, 19);
-        //StartGame(TcpLogin);
+        //StartGame();
     }
     void OnGetChatRoomResultHandler(bool success, string message) {
 
@@ -168,14 +170,14 @@ public class ChatMainWin : MonoBehaviour
 
 
             item.m_c1.selectedIndex = 1;
-            IEnumerator MyCoroutine2()
+            /*IEnumerator MyCoroutine2()
             {
                 Debug.Log("Coroutine started");
                 yield return new WaitForSeconds(1); // 等待1秒  
                 Debug.Log("Coroutine finished waiting");
                 item.m_c1.selectedIndex = 0;
             }
-            StartCoroutine(MyCoroutine2());
+            StartCoroutine(MyCoroutine2());*/
 
         }
             

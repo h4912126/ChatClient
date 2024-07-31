@@ -20,12 +20,9 @@ using System.Linq;
 
 public class LoadDll : MonoBehaviour
 {
-    public interface IEntry
-    {
-        void Start();
-    }
+    //LoginMainWin loginMainWin;
     ResourcePackage package;
-    TcpLoginClient TcpLogin= new();
+    //TcpLoginClient TcpLogin ;
     public EPlayMode PlayMode = EPlayMode.EditorSimulateMode;
     public static List<string> AOTMeatAssemblyNames { get; } = new List<string>()
     {
@@ -33,29 +30,83 @@ public class LoadDll : MonoBehaviour
         "System.dll",
         "System.Core.dll",
         "Newtonsoft.Json.dll",
+        "System.dll",
+        "UnityEngine.AndroidJNIModule.dll",
+        /*"Mono.Security.dll",
+        "System.Configuration.dll",
+        "System.Data.dll",
+        "System.Drawing.dll",
+        "System.Numerics.dll",
+        "System.Runtime.Serialization.dll",
+        "System.Xml.dll",
+        "System.Xml.Linq.dll",
+        "UniFramework.Event.dll",
+        "UniFramework.Machine.dll",
+        "UniFramework.Utility.dll",
+        "Unity.VisualScripting.Antlr3.Runtime.dll",
+        "Unity.VisualScripting.Core.dll",
+        "Unity.VisualScripting.Flow.dll",
+        "Unity.VisualScripting.State.dll",
+        "UnityEngine.AIModule.dll",
+        "UnityEngine.AnimationModule.dll",
+        "UnityEngine.AssetBundleModule.dll",
+        "UnityEngine.AudioModule.dll",
+        "UnityEngine.CoreModule.dll",
+        "UnityEngine.dll",
+        "UnityEngine.GridModule.dll",
+        "UnityEngine.IMGUIModule.dll",
+        "UnityEngine.InputLegacyModule.dll",
+        "UnityEngine.JSONSerializeModule.dll",
+        "UnityEngine.ParticleSystemModule.dll",
+        "UnityEngine.Physics2DModule.dll",
+        "UnityEngine.PhysicsModule.dll",
+        "UnityEngine.PropertiesModule.dll",
+        "UnityEngine.SharedInternalsModule.dll",
+        "UnityEngine.SpriteShapeModule.dll",
+        "UnityEngine.TextCoreFontEngineModule.dll",
+        "UnityEngine.TextCoreTextEngineModule.dll",
+        "UnityEngine.TextRenderingModule.dll",
+        "UnityEngine.TilemapModule.dll",
+        "UnityEngine.UI.dll",
+        "UnityEngine.UIElementsModule.dll",
+        "UnityEngine.UIModule.dll",
+        "UnityEngine.UnityAnalyticsModule.dll",
+        "UnityEngine.UnityWebRequestAssetBundleModule.dll",
+        "UnityEngine.UnityWebRequestModule.dll",
+        "YooAsset.dll",*/
     };
-    private static Dictionary<string, byte[]> s_assetDatas = new();
+    private readonly static Dictionary<string, byte[]> s_assetDatas = new();
     void Start()
     {
-        StartCoroutine(DownLoadAssetsByYooAssets(this.StartGame));
+        Debug.Log("执行LoadDLL");
+        //TcpLogin = ScriptableObject.CreateInstance<TcpLoginClient>();
+        StartCoroutine(DownLoadAssetsByYooAssets(StartGame()));
 
     }
-    void StartGame() {
+    IEnumerator StartGame() {
+        LoadMetadataForAOTAssemblies();
         AssetHandle handle = package.LoadAssetSync<TextAsset>("HotUpdate.dll");
         TextAsset textAsset = handle.AssetObject as TextAsset;
         Assembly hotUpdateAss = Assembly.Load(textAsset.bytes);
         Type entryType = hotUpdateAss.GetType("HotUpdateEntry");
         MethodInfo method = entryType.GetMethod("Main");
         Debug.Log("准备执行热更函数");
-        method.Invoke(null, null);
+        /*method.Invoke(null, null);
+        yield return("");*/
+        AssetHandle handle2 = package.LoadAssetAsync<GameObject>("startPerfab");
+        yield return handle2;
+        GameObject go2 = handle2.InstantiateSync();
+        Debug.Log($"Prefab name is {go2.name}");
+        //loginMainWin.Close();
         //TcpLogin.Login();
 
     }
-    void OnLoginResultHandler(bool success, string message)
+    /*void OnLoginResultHandler(bool success, string message)
     {
 
         if (success)
         {
+            Debug.Log("登录成功");
             //loginMainWin.Close();
         }
         else
@@ -63,21 +114,22 @@ public class LoadDll : MonoBehaviour
             Debug.Log(message);
         }
 
-    }
-    IEnumerator DownLoadAssetsByYooAssets(Action onDownlodComplete)
+    }*/
+    IEnumerator DownLoadAssetsByYooAssets(IEnumerator onDownlodComplete)
 
     {
+    
         //在没有拉到资源的时候 用本地资源
         YooAssets.Initialize();
-        var package1 = YooAssets.CreatePackage("DefaultPackage");
+        //var package1 = YooAssets.CreatePackage("DefaultPackage");
         //设置该资源包为默认的资源包，可以使用YooAssets相关加载接口加载该资源包内容。
-        YooAssets.SetDefaultPackage(package1);
-        var initParameters1 = new EditorSimulateModeParameters();
-        var simulateManifestFilePath1 = EditorSimulateModeHelper.SimulateBuild(EDefaultBuildPipeline.BuiltinBuildPipeline, "DefaultPackage");
-        initParameters1.SimulateManifestFilePath = simulateManifestFilePath1;
-        yield return package1.InitializeAsync(initParameters1);
-        TcpLogin.OnLoginResult += OnLoginResultHandler;
-        //loginMainWin = new();
+        //YooAssets.SetDefaultPackage(package1);
+        //var initParameters1 = new EditorSimulateModeParameters();
+        //var simulateManifestFilePath1 = EditorSimulateModeHelper.SimulateBuild(EDefaultBuildPipeline.BuiltinBuildPipeline, "DefaultPackage");
+        //initParameters1.SimulateManifestFilePath = simulateManifestFilePath1;
+        //yield return package1.InitializeAsync(initParameters1);
+        //TcpLogin.OnLoginResult += OnLoginResultHandler;
+        //loginMainWin = ScriptableObject.CreateInstance<LoginMainWin>();
         //loginMainWin.Start();
         //loginMainWin.SetPage(0);
 
@@ -88,6 +140,7 @@ public class LoadDll : MonoBehaviour
         package = YooAssets.CreatePackage("DefaultPackage");
         //设置该资源包为默认的资源包，可以使用YooAssets相关加载接口加载该资源包内容。
         YooAssets.SetDefaultPackage(package);
+        PlayMode = EPlayMode.HostPlayMode;
         if (PlayMode == EPlayMode.EditorSimulateMode)
         {
             var initParameters = new EditorSimulateModeParameters();
@@ -106,10 +159,12 @@ public class LoadDll : MonoBehaviour
 
             string defaultHostServer = "http://[2409:8a62:e42:5a70:b993:170:1eb7:d32f]:8000/Android/v1.0";
             string fallbackHostServer = "http://[2409:8a62:e42:5a70:b993:170:1eb7:d32f]:8000/Android/v1.0";
-            var initParameters = new HostPlayModeParameters();
-            initParameters.BuildinQueryServices = new GameQueryServices();
-            initParameters.DecryptionServices = new FileOffsetDecryption();
-            initParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
+            var initParameters = new HostPlayModeParameters
+            {
+                BuildinQueryServices = new GameQueryServices(),
+                DecryptionServices = new FileOffsetDecryption(),
+                RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer)
+            };
             var initOperation = package.InitializeAsync(initParameters);
             yield return initOperation;
 
@@ -146,23 +201,41 @@ public class LoadDll : MonoBehaviour
             //loginMainWin.SetPage(2);
     }
         var assets = new List<String> {
-            "Assembly-CSharp"
+            "Assembly-CSharp.dll"
         }.Concat(AOTMeatAssemblyNames);
         foreach (var asset in assets)
         {
-            AssetHandle handle = package.LoadAssetSync<TextAsset>("HotUpdate.dll");
+            Debug.Log($"dll:{asset}");
+            AssetHandle handle = package.LoadAssetSync<TextAsset>(asset);
             TextAsset textAsset = handle.AssetObject as TextAsset;
-            Assembly fileData = Assembly.Load(textAsset.bytes);
+            //Assembly fileData = Assembly.Load(textAsset.bytes);
             //RawFileHandle handle = package.LoadRawFileAsync(asset);
             //yield return handle;
             //byte[] fileData = handle.GetRawFileData();
             s_assetDatas[asset] = textAsset.bytes;
             Debug.Log($"dll:{asset} size:{textAsset.bytes.Length}");
         }
-        onDownlodComplete();
+        StartCoroutine(onDownlodComplete);
 
     }
-
+    private static void LoadMetadataForAOTAssemblies()
+    {
+        /// 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
+        /// 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
+        /// 
+        HomologousImageMode mode = HomologousImageMode.SuperSet;
+        foreach (var aotDllName in AOTMeatAssemblyNames)
+        {
+            byte[] dllBytes = GetAssetData(aotDllName);
+            // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
+            LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
+            Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
+        }
+    }
+    public static byte[] GetAssetData(string dllName)
+    {
+        return s_assetDatas[dllName];
+    }
     private class RemoteServices : IRemoteServices
     {
         private readonly string _defaultHostServer;
@@ -250,7 +323,7 @@ public class LoadDll : MonoBehaviour
         Debug.LogError(string.Format("下载出错：文件名：{0}，错误信息：{1}", fileName, error));
     }
     private void OnDownloadProgressUpdateFunction(int totalDownloadCount, int currentDownloadCount, long totalDownloadBytes, long currentDownloadBytes) {
-        int value = currentDownloadCount / totalDownloadCount * 100;
+        //int value = currentDownloadCount / totalDownloadCount * 100;
         //loginMainWin.SetProgress(value);
         Debug.Log(string.Format("文件总数：{0}，已下载文件数：{1}，下载总大小：{2}，已下载大小{3}", totalDownloadCount, currentDownloadCount, totalDownloadBytes, currentDownloadBytes));
     }

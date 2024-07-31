@@ -228,9 +228,7 @@ namespace FairyGUI
 
         protected void CreateGameObject(string gameObjectName)
         {
-            Debug.Log(gameObjectName);
             gameObject = new GameObject(gameObjectName);
-            Debug.Log(gameObject);
             cachedTransform = gameObject.transform;
             if (Application.isPlaying)
             {
@@ -239,7 +237,6 @@ namespace FairyGUI
                 info.displayObject = this;
 
             }
-            Debug.Log(gameObject);
             gameObject.hideFlags = DisplayObject.hideFlags;
             gameObject.SetActive(false);
         }

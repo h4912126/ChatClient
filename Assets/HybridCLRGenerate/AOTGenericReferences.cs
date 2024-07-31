@@ -394,6 +394,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object[] UnityEngine.Object.FindObjectsOfType<object>()
 		// object[] UnityEngine.Resources.ConvertObjects<object>(UnityEngine.Object[])
 		// object UnityEngine.Resources.Load<object>(string)
+		// object UnityEngine.ScriptableObject.CreateInstance<object>()
 		// int UnityEngine._AndroidJNIHelper.ConvertFromJNIArray<int>(System.IntPtr)
 		// object UnityEngine._AndroidJNIHelper.ConvertFromJNIArray<object>(System.IntPtr)
 		// System.IntPtr UnityEngine._AndroidJNIHelper.GetFieldID<object>(System.IntPtr,string,bool)
@@ -401,6 +402,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.IntPtr UnityEngine._AndroidJNIHelper.GetMethodID<object>(System.IntPtr,string,object[],bool)
 		// string UnityEngine._AndroidJNIHelper.GetSignature<int>(object[])
 		// string UnityEngine._AndroidJNIHelper.GetSignature<object>(object[])
+		// YooAsset.AssetHandle YooAsset.ResourcePackage.LoadAssetAsync<object>(string,uint)
 		// YooAsset.AssetHandle YooAsset.ResourcePackage.LoadAssetSync<object>(string)
 	}
 }

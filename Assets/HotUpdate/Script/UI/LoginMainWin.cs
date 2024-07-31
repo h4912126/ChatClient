@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using YooAsset;
 
-public class LoginMainWin : MonoBehaviour
+public class LoginMainWin : ScriptableObject
 {
     private List<AssetHandle> _handles = new List<AssetHandle>(100);
     UI_LoginMain loginMain;
