@@ -8,6 +8,7 @@ using YooAsset;
 using HybridCLR;
 using System.Reflection;
 using System.Linq;
+using UnityEditor;
 /// <summary>
 /// 脚本工作流程
 /// 1.下载资源，用YooAsset资源框架进行下载
@@ -20,7 +21,7 @@ using System.Linq;
 
 public class LoadDll : MonoBehaviour
 {
-    //LoginMainWin loginMainWin;
+    LoginMainWin loginMainWin;
     ResourcePackage package;
     //TcpLoginClient TcpLogin ;
     public EPlayMode PlayMode = EPlayMode.EditorSimulateMode;
@@ -88,11 +89,6 @@ public class LoadDll : MonoBehaviour
         AssetHandle handle = package.LoadAssetSync<TextAsset>("HotUpdate.dll");
         TextAsset textAsset = handle.AssetObject as TextAsset;
         Assembly hotUpdateAss = Assembly.Load(textAsset.bytes);
-        Type entryType = hotUpdateAss.GetType("HotUpdateEntry");
-        MethodInfo method = entryType.GetMethod("Main");
-        Debug.Log("准备执行热更函数");
-        /*method.Invoke(null, null);
-        yield return("");*/
         AssetHandle handle2 = package.LoadAssetAsync<GameObject>("startPerfab");
         yield return handle2;
         GameObject go2 = handle2.InstantiateSync();
@@ -118,29 +114,13 @@ public class LoadDll : MonoBehaviour
     IEnumerator DownLoadAssetsByYooAssets(IEnumerator onDownlodComplete)
 
     {
-    
-        //在没有拉到资源的时候 用本地资源
-        YooAssets.Initialize();
-        //var package1 = YooAssets.CreatePackage("DefaultPackage");
-        //设置该资源包为默认的资源包，可以使用YooAssets相关加载接口加载该资源包内容。
-        //YooAssets.SetDefaultPackage(package1);
-        //var initParameters1 = new EditorSimulateModeParameters();
-        //var simulateManifestFilePath1 = EditorSimulateModeHelper.SimulateBuild(EDefaultBuildPipeline.BuiltinBuildPipeline, "DefaultPackage");
-        //initParameters1.SimulateManifestFilePath = simulateManifestFilePath1;
-        //yield return package1.InitializeAsync(initParameters1);
-        //TcpLogin.OnLoginResult += OnLoginResultHandler;
-        //loginMainWin = ScriptableObject.CreateInstance<LoginMainWin>();
-        //loginMainWin.Start();
-        //loginMainWin.SetPage(0);
-
-        YooAssets.DestroyPackage("DefaultPackage");
         //1.初始化资源系统
-
+        YooAssets.Initialize();
         //创建默认的包
         package = YooAssets.CreatePackage("DefaultPackage");
         //设置该资源包为默认的资源包，可以使用YooAssets相关加载接口加载该资源包内容。
         YooAssets.SetDefaultPackage(package);
-        PlayMode = EPlayMode.HostPlayMode;
+
         if (PlayMode == EPlayMode.EditorSimulateMode)
         {
             var initParameters = new EditorSimulateModeParameters();
@@ -156,7 +136,7 @@ public class LoadDll : MonoBehaviour
         }
         else if (PlayMode == EPlayMode.HostPlayMode)
         {
-
+            Debug.Log("资源包初始化");
             string defaultHostServer = "http://[2409:8a62:e42:5a70:b993:170:1eb7:d32f]:8000/Android/v1.0";
             string fallbackHostServer = "http://[2409:8a62:e42:5a70:b993:170:1eb7:d32f]:8000/Android/v1.0";
             var initParameters = new HostPlayModeParameters
@@ -176,16 +156,31 @@ public class LoadDll : MonoBehaviour
             {
                 Debug.LogError($"资源包初始化失败：{initOperation.Error}");
             }
-        
-        //2.获取资源版本
-        var operation = package.UpdatePackageVersionAsync();
-        yield return operation;
-        if (operation.Status != EOperationStatus.Succeed)
-        {
-            Debug.LogError(operation.Error);
-            yield break;
-        }
-        string PackageVersion = operation.PackageVersion;
+            /*var assets2 = new List<String> {
+            "Assembly-CSharp.dll"
+        }.Concat(AOTMeatAssemblyNames);
+            foreach (var asset in assets2)
+            {
+                AssetHandle handle2 = package.LoadAssetSync<TextAsset>(asset);
+                TextAsset textAsset2 = handle2.AssetObject as TextAsset;
+                s_assetDatas[asset] = textAsset2.bytes;
+            }
+            LoadMetadataForAOTAssemblies();
+            AssetHandle handle = package.LoadAssetSync<TextAsset>("loginUpdate.dll");
+            TextAsset textAsset = handle.AssetObject as TextAsset;*/
+            //Assembly hotUpdateAss = Assembly.Load(textAsset.bytes);
+            loginMainWin = ScriptableObject.CreateInstance<LoginMainWin>();
+            loginMainWin.Start();
+            //2.获取资源版本
+            Debug.Log("获取资源版本");
+            var operation = package.UpdatePackageVersionAsync();
+            yield return operation;
+            if (operation.Status != EOperationStatus.Succeed)
+            {
+                Debug.LogError(operation.Error);
+                yield break;
+            }
+            string PackageVersion = operation.PackageVersion;
         //3.更新补丁清单
         var operation2 = package.UpdatePackageManifestAsync(PackageVersion);
         yield return operation2;
@@ -198,14 +193,14 @@ public class LoadDll : MonoBehaviour
         }
         yield return Download();
 
-            //loginMainWin.SetPage(2);
+            loginMainWin.SetPage(2);
     }
         var assets = new List<String> {
             "Assembly-CSharp.dll"
         }.Concat(AOTMeatAssemblyNames);
         foreach (var asset in assets)
         {
-            Debug.Log($"dll:{asset}");
+            //Debug.Log($"dll:{asset}");
             AssetHandle handle = package.LoadAssetSync<TextAsset>(asset);
             TextAsset textAsset = handle.AssetObject as TextAsset;
             //Assembly fileData = Assembly.Load(textAsset.bytes);
@@ -213,7 +208,7 @@ public class LoadDll : MonoBehaviour
             //yield return handle;
             //byte[] fileData = handle.GetRawFileData();
             s_assetDatas[asset] = textAsset.bytes;
-            Debug.Log($"dll:{asset} size:{textAsset.bytes.Length}");
+            //Debug.Log($"dll:{asset} size:{textAsset.bytes.Length}");
         }
         StartCoroutine(onDownlodComplete);
 
@@ -229,7 +224,7 @@ public class LoadDll : MonoBehaviour
             byte[] dllBytes = GetAssetData(aotDllName);
             // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
             LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
-            Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
+            //Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
         }
     }
     public static byte[] GetAssetData(string dllName)
@@ -294,7 +289,7 @@ public class LoadDll : MonoBehaviour
             Debug.Log("没有要下载的资源");
             yield break;
         }
-        //loginMainWin.SetPage(1);
+        loginMainWin.SetPage(1);
         //需要下载的文件总数和总大小
         int totalDownloadCount = downloader.TotalDownloadCount;
         long totalDownloadBytes = downloader.TotalDownloadBytes;
@@ -323,8 +318,8 @@ public class LoadDll : MonoBehaviour
         Debug.LogError(string.Format("下载出错：文件名：{0}，错误信息：{1}", fileName, error));
     }
     private void OnDownloadProgressUpdateFunction(int totalDownloadCount, int currentDownloadCount, long totalDownloadBytes, long currentDownloadBytes) {
-        //int value = currentDownloadCount / totalDownloadCount * 100;
-        //loginMainWin.SetProgress(value);
+        int value = currentDownloadCount / totalDownloadCount * 100;
+        loginMainWin.SetProgress(value);
         Debug.Log(string.Format("文件总数：{0}，已下载文件数：{1}，下载总大小：{2}，已下载大小{3}", totalDownloadCount, currentDownloadCount, totalDownloadBytes, currentDownloadBytes));
     }
     private void OnDownloadOverFunction(bool isSucceed) {

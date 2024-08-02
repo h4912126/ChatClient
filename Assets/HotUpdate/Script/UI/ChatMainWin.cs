@@ -40,10 +40,8 @@ public class ChatMainWin : ScriptableObject
     }
     void Init()
     {
-        Debug.Log("开始初始化");
         UIPackage.AddPackage("ChatMain", LoadFunc);
         ChatMainBinder.BindAll();
-        Debug.Log("开始实列");
         chatMain = UI_ChatMain.CreateInstance();
         win = new();
         win.contentPane = chatMain.asCom;
@@ -79,6 +77,7 @@ public class ChatMainWin : ScriptableObject
         chatMain.m_itemChat.m_textInput.hideInput = true;
         chatMain.m_itemChat.m_textInput.onFocusOut.Add(SetKeyboardHeight2);
         chatMain.m_itemChatMain.m_list1.itemRenderer = RenderListItem;
+        chatMain.m_itemChat.m_itemChatPage.m_list2.SetVirtual();
         chatMain.m_itemChat.m_itemChatPage.m_list2.itemRenderer = RenderListItem2;
         TcpLogin.OnChatRoomResult += OnGetChatRoomResultHandler;
         TcpLogin.OnChatInfoResult += OnChatInfoResultHandler;
@@ -91,8 +90,6 @@ public class ChatMainWin : ScriptableObject
         // 连接服务端
         //TcpLogin = new TcpLoginClient();
         //TcpLogin.Login();
-
-        Debug.Log("测试!!!!!!!!");
         FreshPage3();
         win.Show();
     }

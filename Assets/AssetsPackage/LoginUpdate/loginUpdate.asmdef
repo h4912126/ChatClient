@@ -1,10 +1,10 @@
 {
-    "name": "HotUpdate",
+    "name": "loginUpdate",
     "rootNamespace": "",
     "references": [
+        "GUID:201ca989a22acd04d8951565b4d49dcc",
         "GUID:e34a5702dd353724aa315fb8011f08c3",
-        "GUID:13ba8ce62aa80c74598530029cb2d649",
-        "GUID:201ca989a22acd04d8951565b4d49dcc"
+        "GUID:13ba8ce62aa80c74598530029cb2d649"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

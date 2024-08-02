@@ -1,4 +1,3 @@
-using ChatMain;
 using FairyGUI;
 using Login;
 using System.Collections;
@@ -34,7 +33,7 @@ public class LoginMainWin : ScriptableObject
     }
     void Init()
     {
-        UIPackage.AddPackage("Login", LoadFunc);
+        UIPackage.AddPackage("Login");
         LoginBinder.BindAll();
         loginMain = UI_LoginMain.CreateInstance();
         win = new Window();
