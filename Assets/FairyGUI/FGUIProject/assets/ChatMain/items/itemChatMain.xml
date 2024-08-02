@@ -11,7 +11,7 @@
     <component id="n18_zcpd" name="itemChatTop" src="zcpd9s" fileName="items/itemChatTop.xml" xy="0,0" size="750,141">
       <relation target="" sidePair="width-width"/>
     </component>
-    <list id="n17_qp79" name="list1" xy="0,141" size="750,1014" overflow="scroll" defaultItem="ui://i49jx3tvqp799p">
+    <list id="n17_qp79" name="list1" xy="0,141" size="750,1014" overflow="scroll" defaultItem="ui://i49jx3tvqp799p" scrollItemToViewOnClick="false">
       <gearDisplay controller="c1" pages="0,1"/>
       <relation target="n18_zcpd" sidePair="top-bottom"/>
       <relation target="n6_qp79" sidePair="bottomext-top"/>

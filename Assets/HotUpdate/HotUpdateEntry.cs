@@ -3,14 +3,19 @@ using YooAsset;
 using System.Collections;
 class HotUpdateEntry : MonoBehaviour
 {
-    public static void Main()
+    ChatMainWin chatMainWin;
+    public void Main()
     {
         Debug.Log("准备创建主界面");
-        ChatMainWin chatMainWin = ScriptableObject.CreateInstance<ChatMainWin>();
+        chatMainWin = ScriptableObject.CreateInstance<ChatMainWin>();
         chatMainWin.Begin();
     }
     private void Start()
     {
         Main();
+    }
+    private void Update()
+    {
+        chatMainWin.Update();
     }
 }

@@ -7,9 +7,11 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using YooAsset;
+using static TcpLoginClient;
 
 public class ChatMainWin : ScriptableObject
 {
+    private int getListLen = 20;
     public InputField searchInput;
     TcpLoginClient TcpLogin;
     public Action<bool, string> OnLoginResult;
@@ -18,7 +20,8 @@ public class ChatMainWin : ScriptableObject
     private float screenWidth = Screen.width;
     private float screenHeight = Screen.height;
     private string ChatRoomId = "0";
-    public bool isConnect = false;
+    private bool isConnect = false;
+    private bool isFreshList ;
     private List<AssetHandle> _handles = new List<AssetHandle>(100);
     // Start is called before the first frame update
     public void StartGame()
@@ -40,6 +43,10 @@ public class ChatMainWin : ScriptableObject
     }
     void Init()
     {
+        isFreshList = false;
+        Application.targetFrameRate = 60;
+        TcpLogin = ScriptableObject.CreateInstance<TcpLoginClient>();
+        TcpLogin.OnLoginResult += OnLoginResultHandler;
         UIPackage.AddPackage("ChatMain", LoadFunc);
         ChatMainBinder.BindAll();
         chatMain = UI_ChatMain.CreateInstance();
@@ -82,9 +89,24 @@ public class ChatMainWin : ScriptableObject
         TcpLogin.OnChatRoomResult += OnGetChatRoomResultHandler;
         TcpLogin.OnChatInfoResult += OnChatInfoResultHandler;
         TcpLogin.OnChatAddResult += OnChatAddResultHandler;
+        chatMain.m_itemChat.m_itemChatPage.m_list2.scrollPane.onScrollEnd.Add(OnScroll);
     }
 
+    void OnScroll(EventContext context) {
+        var scrollPane = chatMain.m_itemChat.m_itemChatPage.m_list2.scrollPane;
+        if (chatMain.m_itemChat.m_itemChatPage.m_list2.numItems == 0) { return; }
+        if (scrollPane.scrollingPosY == 0 && !isFreshList)
+        {
+            isFreshList = true;
+            int chatListLen = TcpLogin.userChatInfo[ChatRoomId].Count;
+            TcpLogin.GetChatInfoByChatId(ChatRoomId, chatListLen, getListLen + chatListLen);
+           
+        }
+    }
     void open() {
+        if (chatMain.m_c2.selectedIndex == 1){
+            return;
+        }
         chatMain.m_itemChatMain.m_itemChatBottom.m_c1.selectedIndex = 3;
         chatMain.m_itemChatMain.m_c1.selectedIndex = 3;
         // 连接服务端
@@ -99,7 +121,7 @@ public class ChatMainWin : ScriptableObject
         {
             Debug.Log("登录成功");
             TcpLogin.GetChatRoomInfo(0,19);
-            StartGame();
+            open();
             FreshPage3();
         }
         else {
@@ -108,10 +130,7 @@ public class ChatMainWin : ScriptableObject
 
     }
     public void Begin() {
-
-        Debug.Log("登录成功");
-        TcpLogin = ScriptableObject.CreateInstance<TcpLoginClient>();
-        TcpLogin.OnLoginResult += OnLoginResultHandler;
+        Init();
         TcpLogin.Login();
         //TcpLogin.GetChatRoomInfo(0, 19);
         //StartGame();
@@ -138,6 +157,8 @@ public class ChatMainWin : ScriptableObject
     }
     void FreshPage1()
     {
+        TcpLogin.chatRooms.Sort(new TimeComparer());
+        
         chatMain.m_itemChatMain.m_list1.numItems = TcpLogin.chatRooms.Count;
     }
     void RenderListItem(int index, GObject obj) {
@@ -162,7 +183,7 @@ public class ChatMainWin : ScriptableObject
                 chatMain.m_c2.selectedIndex = 1;
             }
             else {
-                TcpLogin.GetChatInfoByChatId(ChatRoomId, 0, 99);
+                TcpLogin.GetChatInfoByChatId(ChatRoomId, 0, getListLen);
             }
             item.m_play.Play();
         }
@@ -217,16 +238,25 @@ public class ChatMainWin : ScriptableObject
     void OnChatInfoResultHandler(bool success, string message) {
 
         if (success)
+
         { var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
+            int oldCount = chatMain.m_itemChat.m_itemChatPage.m_list2.numItems;
             chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = count;
-            chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count-1);
+            if (!isConnect)
+            {
+                if (count > 0) {
+                    chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count - 1);
+                }          
+                isConnect = true;
+            }
+            else {
+                chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count - oldCount ,false,true);
+            }
             SetKeyboardHeight2();
             chatMain.m_c2.selectedIndex = 1;
+           
         }
-        else
-        {
-            Debug.Log(message);
-        }
+        isFreshList = false;
     }
     void OnChatAddResultHandler(bool success, string message)
     {
@@ -237,12 +267,16 @@ public class ChatMainWin : ScriptableObject
             chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = count;
             chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count-1);
             SetKeyboardHeight2();
-            chatMain.m_c2.selectedIndex = 1;
+            if (chatMain.m_c2.selectedIndex == 0) {
+                chatMain.m_c2.selectedIndex = 1;
+            }
+            FreshPage1();
         }
         else
         {
             Debug.Log(message);
         }
+      
     }
     void OnDestroy()
     {
@@ -262,7 +296,7 @@ public class ChatMainWin : ScriptableObject
         _handles.Clear();
     }
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (chatMain.m_itemChat.m_textInput.focused ) {
             SetKeyboardHeight();

@@ -24,9 +24,22 @@ public class TcpLoginClient : ScriptableObject
     private List<byte> remainingData = new();
     private TcpClient tcpClient;
     private NetworkStream stream;
-    public List<ChatRoom> chatRooms = new() ;
+    public List<ChatRoom> chatRooms;
+    public Dictionary<string, ChatRoom> chatRoomDic;
+    public class TimeComparer : IComparer<ChatRoom> {
+        public int Compare(ChatRoom x, ChatRoom y) {
+            string[] strL = x.ChatRoomContent.Split('&');
+            int xTime = int.Parse(strL[0]);
+            string[] strL2 = y.ChatRoomContent.Split('&');
+            int yTime = int.Parse(strL[0]);
+            return xTime.CompareTo(yTime);
+        }
+    }
+    private List<Action> actions = new List<Action>();
     public Dictionary<string, List<string[]>> userChatInfo = new();
+    public Dictionary<string, int> userChatInfoLen = new();
     public string ServerIP = "2409:8a62:e42:5a70:b993:170:1eb7:d32f";
+    private bool connecting = false;
     public int ServerPort = 9527;
     // 登录信息  
     public string Username = "user";
@@ -38,13 +51,16 @@ public class TcpLoginClient : ScriptableObject
     public Action<bool, string> OnChatInfoResult;
     public Action<bool, string> OnChatAddResult;
     public UserInfo userInfo;
+    private void ConnetServer() {
+        tcpClient = new TcpClient(ServerIP, ServerPort);
+        stream = tcpClient.GetStream();
 
+    }
     private void ConnectAndLogin()
     {
         try
         {
-            tcpClient = new TcpClient(ServerIP, ServerPort);
-            stream = tcpClient.GetStream();
+            ConnetServer();
             var sign = GetUserSign();
             if (sign == "") {
                 Debug.Log("不支持的设备");
@@ -63,6 +79,7 @@ public class TcpLoginClient : ScriptableObject
             {
                 OnLoginResult(false, "连接错误: " + ex.Message);
             }
+            connecting = false;
         }
     }
     public async Task SynGetChatRoomInfo(int start ,int end)
@@ -108,6 +125,14 @@ public class TcpLoginClient : ScriptableObject
         {
             Debug.LogError("发送聊天信息失败: " + ex.Message);
             OnChatInfoResult?.Invoke(false, "连接错误: " + ex.Message);
+            if (connecting == false) {
+                connecting = true;
+                ConnectAndLogin();
+               
+            }
+            
+            actions.Add(() => SendMsgByChatId(chatId, msg));
+
         }
     }
     // 清理资源（可选，因为我们在ConnectAndLogin中已经关闭了连接）  
@@ -190,6 +215,7 @@ public class TcpLoginClient : ScriptableObject
         var js = jsonData["msg"];
         if (method == "loginPara")
         {
+            connecting = false;
             var name = js["name"];
             var userId = js["userId"];
             var userIcon = js["userIcon"];
@@ -197,7 +223,10 @@ public class TcpLoginClient : ScriptableObject
             _mainThreadContext.Post(new SendOrPostCallback(o =>
             {
                 // 在这里更新UI  
+
                 Debug.Log("Updating UI from main thread");
+                RemoveAndInvokeActions();
+
                 OnLoginResult?.Invoke(true, "获取用户信息成功");
             }), null);
 
@@ -206,6 +235,8 @@ public class TcpLoginClient : ScriptableObject
         {
             _mainThreadContext.Post(new SendOrPostCallback(o =>
             {
+                chatRooms = new();
+                chatRoomDic = new();
                 foreach (var item in js)
                 {
                     var chatId = item["chatRoomId"];
@@ -214,6 +245,7 @@ public class TcpLoginClient : ScriptableObject
                     var chatContent = item["chatRoomContent"];
                     var chatRoom = new ChatRoom(chatId.ToString(), chatName.ToString(), chatContent.ToString(), chatIcon.ToString());
                     chatRooms.Add(chatRoom);
+                    chatRoomDic[chatId.ToString()] = chatRoom;
                 }
                 // 在这里更新UI  
                 OnChatRoomResult?.Invoke(true, "获取聊天室成功");
@@ -224,15 +256,17 @@ public class TcpLoginClient : ScriptableObject
             _mainThreadContext.Post(new SendOrPostCallback(o =>
             {
                 string id = "0";
-                List<string[]> chatList = new();
                 foreach (var item in js)
                 {
                     string str = item.ToString();
                     string[] strL = str.Split('&');
                     id = strL[4];
-                    chatList.Add(strL);
+                    if (!userChatInfo.ContainsKey(id))
+                    {
+                        userChatInfo[id] = new List<string[]>();
+                    }
+                    userChatInfo[id].Insert(0,strL);
                 }
-                userChatInfo[id] = chatList;
                 // 在这里更新UI  
                 OnChatInfoResult?.Invoke(true, "获取聊天信息成功");
             }), null);
@@ -246,13 +280,29 @@ public class TcpLoginClient : ScriptableObject
                 string[] strL = str.Split('&');
                 string id = strL[4];
                 userChatInfo[id].Add(strL);
+                chatRoomDic[id].ChatRoomContent = str;
                 // 在这里更新UI  
                 OnChatAddResult?.Invoke(true, "获取到新的聊天信息");
             }), null);
         }
 
     }
+    void RemoveAndInvokeActions()
+    {
+        // 使用逆序遍历来避免索引问题  
+        for (int i = actions.Count - 1; i >= 0; i--)
+        {
+            var action = actions[i];
+            if (action != null)
+            {
+                action.Invoke();
+                actions.RemoveAt(i); // 执行后删除  
+            }
+        }
 
+        // 此时actions列表已经为空  
+        Debug.Log("All actions have been executed and removed.");
+    }
     private void CloseConnection()
     {
         if (stream != null)
@@ -283,6 +333,7 @@ public class TcpLoginClient : ScriptableObject
             Debug.LogError("启动连接和监听时出错: " + ex.Message);
         }
     }
+
     public void Login()
     {
         ConnectAndLogin();
