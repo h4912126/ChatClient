@@ -31,8 +31,8 @@ public class TcpLoginClient : ScriptableObject
             string[] strL = x.ChatRoomContent.Split('&');
             int xTime = int.Parse(strL[0]);
             string[] strL2 = y.ChatRoomContent.Split('&');
-            int yTime = int.Parse(strL[0]);
-            return xTime.CompareTo(yTime);
+            int yTime = int.Parse(strL2[0]);
+            return yTime.CompareTo(xTime);
         }
     }
     private List<Action> actions = new List<Action>();
@@ -50,6 +50,7 @@ public class TcpLoginClient : ScriptableObject
     public Action<bool, string> OnChatRoomResult;
     public Action<bool, string> OnChatInfoResult;
     public Action<bool, string> OnChatAddResult;
+    public Action<bool, string> OnAddChatRoomResult;
     public UserInfo userInfo;
     private void ConnetServer() {
         tcpClient = new TcpClient(ServerIP, ServerPort);
@@ -60,6 +61,8 @@ public class TcpLoginClient : ScriptableObject
     {
         try
         {
+            chatRooms = new();
+            chatRoomDic = new();
             ConnetServer();
             var sign = GetUserSign();
             if (sign == "") {
@@ -132,6 +135,22 @@ public class TcpLoginClient : ScriptableObject
             }
             
             actions.Add(() => SendMsgByChatId(chatId, msg));
+
+        }
+    }
+    public void AddChatRoomById(string chatId, string chatRoomName,string chatRoomIcon,string createString)
+    {
+        try
+        {
+            string chatmsg = "createChat" + "&" + chatId + "&" + chatRoomName + "&" + chatRoomIcon + "&" + createString + "\n";
+            byte[] data = Encoding.UTF8.GetBytes(chatmsg);
+            stream.Write(data, 0, data.Length);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("创建聊天失败: " + ex.Message);
+            OnAddChatRoomResult?.Invoke(false, "连接错误: " + ex.Message);
+  
 
         }
     }
@@ -235,8 +254,6 @@ public class TcpLoginClient : ScriptableObject
         {
             _mainThreadContext.Post(new SendOrPostCallback(o =>
             {
-                chatRooms = new();
-                chatRoomDic = new();
                 foreach (var item in js)
                 {
                     var chatId = item["chatRoomId"];
@@ -279,7 +296,9 @@ public class TcpLoginClient : ScriptableObject
                 string str = js.ToString();
                 string[] strL = str.Split('&');
                 string id = strL[4];
-                userChatInfo[id].Add(strL);
+                if (userChatInfo.ContainsKey(id)) {
+                    userChatInfo[id].Add(strL);
+                }
                 chatRoomDic[id].ChatRoomContent = str;
                 // 在这里更新UI  
                 OnChatAddResult?.Invoke(true, "获取到新的聊天信息");

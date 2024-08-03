@@ -174,6 +174,7 @@ public class ChatMainWin : ScriptableObject
         item.m_textContent.text = result[5];
         item.onClick.Set(() => {
             ChatRoomId = TcpLogin.chatRooms[index].ChatRoomId;
+            chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = 0;
             if (TcpLogin.userChatInfo.ContainsKey($"{ChatRoomId}"))
             {
                 var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
@@ -206,6 +207,42 @@ public class ChatMainWin : ScriptableObject
         item.m_itemchatContent.m_textOhter1.text = context;
         item.m_itemchatContent.m_textOhter.text = context;
         item.m_itemchatContent.m_textSelf.text = context;
+        item.m_itemchatContent.m_itemUserHeadOther.onClick.Set(() =>
+        {
+
+            if (theId != TcpLogin.userInfo.UserID) { 
+            ChatRoomId = "chatRoomId_" + TcpLogin.userInfo.UserID + "_" + theId;
+            string ChatRoomId2 = "chatRoomId_" + theId + "_" + TcpLogin.userInfo.UserID;
+            chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = 0;
+                if (TcpLogin.userChatInfo.ContainsKey($"{ChatRoomId}"))
+                {
+                    var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
+                    chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = count;
+                    chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count - 1);
+                    SetKeyboardHeight2();
+                    chatMain.m_c2.selectedIndex = 1;
+                }
+                else if (TcpLogin.userChatInfo.ContainsKey(ChatRoomId2)) {
+                    ChatRoomId = ChatRoomId2;
+                    var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
+                    chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = count;
+                    chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count - 1);
+                    SetKeyboardHeight2();
+                    chatMain.m_c2.selectedIndex = 1;
+                }
+                else
+                {
+                    TcpLogin.GetChatInfoByChatId(ChatRoomId, 0, getListLen);
+
+                    TcpLogin.AddChatRoomById(ChatRoomId, "PrivateChat", "PrivateChat", TcpLogin.userInfo.Username + "发起了对话");
+                }
+
+            }
+
+        });
+
+
+
         if (theId == TcpLogin.userInfo.UserID)
         {
             item.m_itemchatContent.m_messagetype.selectedIndex = 0;
@@ -232,14 +269,23 @@ public class ChatMainWin : ScriptableObject
             {
                 item.m_itemchatContent.m_overlength.selectedIndex = 0;
             }
+
         }
+
         item.height = item.m_itemchatContent.m_pos.y;
     }
     void OnChatInfoResultHandler(bool success, string message) {
 
         if (success)
 
-        { var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
+        {
+            if (!TcpLogin.userChatInfo.ContainsKey(ChatRoomId))
+            {
+                chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = 0;
+                isFreshList = false;
+                return;
+            }
+            var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
             int oldCount = chatMain.m_itemChat.m_itemChatPage.m_list2.numItems;
             chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = count;
             if (!isConnect)
@@ -250,7 +296,12 @@ public class ChatMainWin : ScriptableObject
                 isConnect = true;
             }
             else {
-                chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count - oldCount ,false,true);
+                var curCount = count - oldCount;
+                if (curCount == count) {
+                    curCount--;
+                }
+                
+                chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(curCount, false,true);
             }
             SetKeyboardHeight2();
             chatMain.m_c2.selectedIndex = 1;
@@ -263,13 +314,16 @@ public class ChatMainWin : ScriptableObject
 
         if (success)
         {
-            var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
-            chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = count;
-            chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count-1);
-            SetKeyboardHeight2();
-            if (chatMain.m_c2.selectedIndex == 0) {
-                chatMain.m_c2.selectedIndex = 1;
+            if (TcpLogin.userChatInfo.ContainsKey(ChatRoomId))
+            {
+                var count = TcpLogin.userChatInfo[$"{ChatRoomId}"].Count;
+                chatMain.m_itemChat.m_itemChatPage.m_list2.numItems = count;
+                chatMain.m_itemChat.m_itemChatPage.m_list2.ScrollToView(count - 1);
+                SetKeyboardHeight2();
             }
+            /*if (chatMain.m_c2.selectedIndex == 0) {
+                chatMain.m_c2.selectedIndex = 1;
+            }*/
             FreshPage1();
         }
         else
